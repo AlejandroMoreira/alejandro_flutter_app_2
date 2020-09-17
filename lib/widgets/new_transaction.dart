@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
   final Function addTransaction;
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
 
   NewTransaction(this.addTransaction);
 
+  @override
+  _NewTransactionState createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
+
   void submitData() {
     try {
-      addTransaction(titleController.text,
-          double.parse(amountController.text));
+      widget.addTransaction(
+        titleController.text,
+        double.parse(amountController.text),
+      );
     } on FormatException {
       print("Format ERROR");
     }
+
+    Navigator.of(context).pop(); //Cierra el modal(context) al darle enter
   }
 
   @override

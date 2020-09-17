@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
-
   final List<Transaction> transactions;
 
   TransactionList(this.transactions);
@@ -13,13 +12,14 @@ class TransactionList extends StatelessWidget {
     return Container(
       height: 300, //List view necesita un tamaño
       child: ListView.builder(
-        itemBuilder: (context,index){
+        itemBuilder: (context, index) {
           return Card(
             child: Row(
               children: [
                 Container(
                   child: Text(
-                    "\$${transactions[index].amount.toStringAsFixed(2)}", //price // 2 decimales
+                    "\$${transactions[index].amount.toStringAsFixed(2)}",
+                    //price // 2 decimales
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -43,10 +43,7 @@ class TransactionList extends StatelessWidget {
                   children: [
                     Text(
                       transactions[index].title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     Text(
                       DateFormat.yMEd().format(transactions[index].date), // Y
@@ -61,7 +58,7 @@ class TransactionList extends StatelessWidget {
           );
         },
         itemCount: transactions.length,
-        ),
+      ),
     );
   }
 }
