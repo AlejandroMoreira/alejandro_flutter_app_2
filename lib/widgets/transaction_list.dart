@@ -18,7 +18,8 @@ class TransactionList extends StatelessWidget {
                   "No transactions added yet!!",
                   style: Theme.of(context).textTheme.headline6,
                 ),
-                SizedBox( //Espacio en blanco
+                SizedBox(
+                  //Espacio en blanco
                   height: 10,
                 ),
                 Container(
@@ -33,47 +34,28 @@ class TransactionList extends StatelessWidget {
           : ListView.builder(
               itemBuilder: (context, index) {
                 return Card(
-                  child: Row(
-                    children: [
-                      Container(
-                        child: Text(
-                          "\$${transactions[index].amount.toStringAsFixed(2)}",
-                          //price // 2 decimales
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.red,
+                  margin: EdgeInsets.symmetric(),
+                  elevation: 5,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.red,
+                      radius: 30,
+                      child: Padding(
+                        padding: EdgeInsets.all(6),
+                        child: FittedBox(
+                          child: Text(
+                            "\$${transactions[index].amount}",
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
-                        margin: EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 20,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.red,
-                            width: 2,
-                          ),
-                        ),
-                        padding: EdgeInsets.all(10),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            transactions[index].title,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          Text(
-                            DateFormat.yMEd()
-                                .format(transactions[index].date), // Y
-                            style: TextStyle(
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
+                    title: Text(
+                      transactions[index].title,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    subtitle:
+                        Text(DateFormat.yMEd().format(transactions[index].date)),
                   ),
                 );
               },

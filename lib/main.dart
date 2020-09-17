@@ -45,42 +45,42 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transaccions = [
-//    Transaction(
-//      id: 't1',
-//      title: "New shoes",
-//      amount: 14.99,
-//      date: DateTime.now(),
-//    ),
-//    Transaction(
-//      id: 't2',
-//      title: "Weekly Groceries",
-//      amount: 16.52,
-//      date: DateTime.now(),
-//    ),
-//    Transaction(
-//      id: 't1',
-//      title: "New shoes",
-//      amount: 14.99,
-//      date: DateTime.now(),
-//    ),
-//    Transaction(
-//      id: 't2',
-//      title: "Weekly Groceries",
-//      amount: 16.52,
-//      date: DateTime.now(),
-//    ),
-//    Transaction(
-//      id: 't1',
-//      title: "New shoes",
-//      amount: 14.99,
-//      date: DateTime.now(),
-//    ),
-//    Transaction(
-//      id: 't2',
-//      title: "Weekly Groceries",
-//      amount: 16.52,
-//      date: DateTime.now(),
-//    ),
+    Transaction(
+      id: 't1',
+      title: "New shoes",
+      amount: 14.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: "Weekly Groceries",
+      amount: 16.52,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't1',
+      title: "New shoes",
+      amount: 14.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: "Weekly Groceries",
+      amount: 16.52,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't1',
+      title: "New shoes",
+      amount: 14.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: "Weekly Groceries",
+      amount: 16.52,
+      date: DateTime.now(),
+    ),
   ];
 
   List<Transaction> get _recentTransactions {
