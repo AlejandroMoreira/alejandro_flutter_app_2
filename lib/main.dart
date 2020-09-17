@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
               headline6: TextStyle(
                 fontFamily: "OpenSans",
                 fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
             ),
         appBarTheme: AppBarTheme(
