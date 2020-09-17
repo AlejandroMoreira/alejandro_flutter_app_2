@@ -1,14 +1,15 @@
-import 'package:alejandroflutterapp2/modles/transaction.dart';
-import 'package:alejandroflutterapp2/widgets/barritas.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import './barritas.dart';
+import '../modles/transaction.dart';
 
 class Chart extends StatelessWidget {
   final List<Transaction> recentTransactions;
 
   const Chart(this.recentTransactions);
 
-  List<Map<String, Object>> get contenido_barritas {
+  List<Map<String, Object>> get contenidoBarritas {
     return List.generate(
       7,
       (index) {
@@ -29,7 +30,7 @@ class Chart extends StatelessWidget {
   }
 
   double get totalSpending {
-    return contenido_barritas.fold(0.0, (sum, element) {
+    return contenidoBarritas.fold(0.0, (sum, element) {
       return sum + element["amount"];
     });
   }
@@ -44,7 +45,7 @@ class Chart extends StatelessWidget {
         padding: EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: contenido_barritas.map((data) {
+          children: contenidoBarritas.map((data) {
             return Flexible(
               fit: FlexFit.tight,
               child: Barritas(
