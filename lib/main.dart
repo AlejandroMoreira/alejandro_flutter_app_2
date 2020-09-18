@@ -49,12 +49,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transaccions = [
-//    Transaction(
-//      id: 't1',
-//      title: "New shoes",
-//      amount: 14.99,
-//      date: DateTime.now(),
-//    ),
+    Transaction(
+      id: 't1',
+      title: "New shoes",
+      amount: 14.99,
+      date: DateTime.now(),
+    ),
 //    Transaction(
 //      id: 't2',
 //      title: "Weekly Groceries",
@@ -95,11 +95,11 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(String txTitle, double txAmount, DateTime date) {
     final newTx = Transaction(
       title: txTitle,
       amount: txAmount,
-      date: DateTime.now(),
+      date: date,
       id: DateTime.now().toString(),
     );
 
@@ -118,6 +118,12 @@ class _MyHomePageState extends State<MyHomePage> {
             child: NewTransaction(_addNewTransaction),
           );
         });
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _transaccions.removeWhere((element) => element.id == id);
+    });
   }
 
   @override
@@ -139,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(_recentTransactions),
-            TransactionList(_transaccions),
+            TransactionList(_transaccions,_deleteTransaction),
           ],
         ),
       ),

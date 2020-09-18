@@ -16,14 +16,14 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime _dateController;
 
   void _submitData() {
-    try {
-      widget.addTransaction(
-        _titleController.text,
-        double.parse(_amountController.text),
-      );
-    } on FormatException {
-      print("Format ERROR");
-    }
+    if (_amountController.text.isEmpty) return;
+
+    final title = _titleController.text;
+    final amount = double.parse(_amountController.text);
+
+    if (title.isEmpty || amount <= 0 || _dateController == null) return;
+
+    widget.addTransaction(title,amount,_dateController);
 
     Navigator.of(context).pop(); //Cierra el modal(context) al darle enter
   }
