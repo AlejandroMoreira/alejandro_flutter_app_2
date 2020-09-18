@@ -23,7 +23,7 @@ class _NewTransactionState extends State<NewTransaction> {
 
     if (title.isEmpty || amount <= 0 || _dateController == null) return;
 
-    widget.addTransaction(title,amount,_dateController);
+    widget.addTransaction(title, amount, _dateController);
 
     Navigator.of(context).pop(); //Cierra el modal(context) al darle enter
   }
@@ -48,55 +48,61 @@ class _NewTransactionState extends State<NewTransaction> {
   @override
   Widget build(BuildContext context) {
     //Atrib
-
-    return Card(
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              //title
-              decoration: InputDecoration(labelText: "Title"),
-              controller: _titleController,
-              onSubmitted: (_) => _submitData,
-            ),
-            TextField(
-              //amount
-              decoration: InputDecoration(labelText: "Amount"),
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => _submitData(),
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(_dateController == null
-                        ? "No date choosen!!"
-                        : DateFormat.yMEd().format(_dateController)),
-                  ),
-                  FlatButton(
-                    child: Text(
-                      "Choose date",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    textColor: Theme.of(context).primaryColor,
-                    onPressed: _showDatePicker,
-                  ),
-                ],
+    return SingleChildScrollView(
+      child: Card(
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            right: 10,
+            left: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10, //Tamaño del teclado
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                //title
+                decoration: InputDecoration(labelText: "Title"),
+                controller: _titleController,
+                onSubmitted: (_) => _submitData,
               ),
-            ),
-            RaisedButton(
-              child: Text("Add Transaction"),
-              color: Theme.of(context).primaryColor,
-              textColor: Theme.of(context).buttonColor,
-              onPressed: () => _submitData(),
-            ),
-          ],
+              TextField(
+                //amount
+                decoration: InputDecoration(labelText: "Amount"),
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => _submitData(),
+              ),
+              Container(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(_dateController == null
+                          ? "No date choosen!!"
+                          : DateFormat.yMEd().format(_dateController)),
+                    ),
+                    FlatButton(
+                      child: Text(
+                        "Choose date",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      textColor: Theme.of(context).primaryColor,
+                      onPressed: _showDatePicker,
+                    ),
+                  ],
+                ),
+              ),
+              RaisedButton(
+                child: Text("Add Transaction"),
+                color: Theme.of(context).primaryColor,
+                textColor: Theme.of(context).buttonColor,
+                onPressed: () => _submitData(),
+              ),
+            ],
+          ),
         ),
       ),
     );
