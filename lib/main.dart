@@ -55,36 +55,36 @@ class _MyHomePageState extends State<MyHomePage> {
       amount: 14.99,
       date: DateTime.now(),
     ),
-//    Transaction(
-//      id: 't2',
-//      title: "Weekly Groceries",
-//      amount: 16.52,
-//      date: DateTime.now(),
-//    ),
-//    Transaction(
-//      id: 't1',
-//      title: "New shoes",
-//      amount: 14.99,
-//      date: DateTime.now(),
-//    ),
-//    Transaction(
-//      id: 't2',
-//      title: "Weekly Groceries",
-//      amount: 16.52,
-//      date: DateTime.now(),
-//    ),
-//    Transaction(
-//      id: 't1',
-//      title: "New shoes",
-//      amount: 14.99,
-//      date: DateTime.now(),
-//    ),
-//    Transaction(
-//      id: 't2',
-//      title: "Weekly Groceries",
-//      amount: 16.52,
-//      date: DateTime.now(),
-//    ),
+    Transaction(
+      id: 't2',
+      title: "Weekly Groceries",
+      amount: 16.52,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't1',
+      title: "New shoes",
+      amount: 14.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: "Weekly Groceries",
+      amount: 16.52,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't1',
+      title: "New shoes",
+      amount: 14.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: "Weekly Groceries",
+      amount: 16.52,
+      date: DateTime.now(),
+    ),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -128,24 +128,32 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text("Flutter App"),
+      backgroundColor: Theme.of(context).primaryColor,
+      actions: [
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _showAddTransationMenu(context),
+        ),
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Flutter App"),
-        backgroundColor: Theme.of(context).primaryColor,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _showAddTransationMenu(context),
-          ),
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
 //            mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(_recentTransactions),
-            TransactionList(_transaccions,_deleteTransaction),
+            Container(
+              height: (MediaQuery.of(context).size.height - appBar.preferredSize.height
+              - MediaQuery.of(context).padding.top)* 0.3,
+              child: Chart(_recentTransactions),
+            ),
+            Container(
+                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height
+                    - MediaQuery.of(context).padding.top) * 0.7,
+                child: TransactionList(_transaccions, _deleteTransaction)),
           ],
         ),
       ),
