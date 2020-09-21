@@ -59,7 +59,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
   final List<Transaction> _transaccions = [
     Transaction(
       id: 't1',
@@ -100,6 +100,23 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   bool _showChart = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   List<Transaction> get _recentTransactions {
     return _transaccions.where((element) {
@@ -191,28 +208,8 @@ class _MyHomePageState extends State<MyHomePage> {
         MediaQuery.of(context).orientation == Orientation.landscape;
 
     final PreferredSizeWidget appBar = Platform.isIOS
-        ? CupertinoNavigationBar(
-            middle: Text("Personal expenses"),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  onTap: () => _showAddTransationMenu(context),
-                  child: Icon(CupertinoIcons.add),
-                )
-              ],
-            ),
-          )
-        : AppBar(
-            title: Text("Flutter App"),
-            backgroundColor: Theme.of(context).primaryColor,
-            actions: [
-              IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () => _showAddTransationMenu(context),
-              ),
-            ],
-          );
+        ? buildCupertinoNavigationBar(context)
+        : buildAppBarAndroid(context);
 
     final txListWidget = Container(
         height: (MediaQuery.of(context).size.height -
@@ -251,5 +248,33 @@ class _MyHomePageState extends State<MyHomePage> {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
           );
+  }
+
+  AppBar buildAppBarAndroid(BuildContext context) {
+    return AppBar(
+          title: Text("Flutter App"),
+          backgroundColor: Theme.of(context).primaryColor,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () => _showAddTransationMenu(context),
+            ),
+          ],
+        );
+  }
+
+  CupertinoNavigationBar buildCupertinoNavigationBar(BuildContext context) {
+    return CupertinoNavigationBar(
+          middle: Text("Personal expenses"),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GestureDetector(
+                onTap: () => _showAddTransationMenu(context),
+                child: Icon(CupertinoIcons.add),
+              )
+            ],
+          ),
+        );
   }
 }
