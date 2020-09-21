@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:alejandroflutterapp2/widgets/adaptive_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -55,7 +59,8 @@ class _NewTransactionState extends State<NewTransaction> {
             top: 10,
             right: 10,
             left: 10,
-            bottom: MediaQuery.of(context).viewInsets.bottom + 10, //Tamaño del teclado
+            bottom: MediaQuery.of(context).viewInsets.bottom +
+                10, //Tamaño del teclado
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -82,16 +87,7 @@ class _NewTransactionState extends State<NewTransaction> {
                           ? "No date choosen!!"
                           : DateFormat.yMEd().format(_dateController)),
                     ),
-                    FlatButton(
-                      child: Text(
-                        "Choose date",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      textColor: Theme.of(context).primaryColor,
-                      onPressed: _showDatePicker,
-                    ),
+                    AdaptiveButton("Choose Date",_showDatePicker),
                   ],
                 ),
               ),

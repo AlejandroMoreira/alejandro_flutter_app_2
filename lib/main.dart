@@ -145,16 +145,29 @@ class _MyHomePageState extends State<MyHomePage> {
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
 
-    final appBar = AppBar(
-      title: Text("Flutter App"),
-      backgroundColor: Theme.of(context).primaryColor,
-      actions: [
-        IconButton(
-          icon: Icon(Icons.add),
-          onPressed: () => _showAddTransationMenu(context),
-        ),
-      ],
-    );
+    final PreferredSizeWidget appBar = Platform.isIOS
+        ? CupertinoNavigationBar(
+            middle: Text("Personal expenses"),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GestureDetector(
+                  onTap: () => _showAddTransationMenu(context),
+                  child: Icon(CupertinoIcons.add),
+                )
+              ],
+            ),
+          )
+        : AppBar(
+            title: Text("Flutter App"),
+            backgroundColor: Theme.of(context).primaryColor,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () => _showAddTransationMenu(context),
+              ),
+            ],
+          );
 
     final txListWidget = Container(
         height: (MediaQuery.of(context).size.height -
@@ -163,53 +176,59 @@ class _MyHomePageState extends State<MyHomePage> {
             0.7,
         child: TransactionList(_transaccions, _deleteTransaction));
 
-    final pageBody = SingleChildScrollView(
-      child: Column(
+    final pageBody = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
 //            mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (isLandscape)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("Show Chart"),
-                Switch.adaptive(
-                  activeColor: Theme.of(context).primaryColor,
-                  value: _showChart,
-                  onChanged: (value) {
-                    setState(() {
-                      _showChart = value;
-                    });
-                  },
-                ),
-              ],
-            ),
-          if (!isLandscape)
-            Container(
-              height: (MediaQuery.of(context).size.height -
-                      appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  0.3,
-              child: Chart(_recentTransactions),
-            ),
-          if (!isLandscape) txListWidget,
-          if (isLandscape)
-            _showChart
-                ? Container(
-                    height: (MediaQuery.of(context).size.height -
-                            appBar.preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
-                        0.7,
-                    child: Chart(_recentTransactions),
-                  )
-                : txListWidget,
-        ],
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Show Chart",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  Switch.adaptive(
+                    activeColor: Theme.of(context).primaryColor,
+                    value: _showChart,
+                    onChanged: (value) {
+                      setState(() {
+                        _showChart = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            if (!isLandscape)
+              Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.3,
+                child: Chart(_recentTransactions),
+              ),
+            if (!isLandscape) txListWidget,
+            if (isLandscape)
+              _showChart
+                  ? Container(
+                      height: (MediaQuery.of(context).size.height -
+                              appBar.preferredSize.height -
+                              MediaQuery.of(context).padding.top) *
+                          0.7,
+                      child: Chart(_recentTransactions),
+                    )
+                  : txListWidget,
+          ],
+        ),
       ),
     );
 
     return Platform.isIOS
         ? CupertinoPageScaffold(
             child: pageBody,
+            navigationBar: appBar,
           )
         : Scaffold(
             appBar: appBar,
